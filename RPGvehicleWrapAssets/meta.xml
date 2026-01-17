@@ -10,4 +10,5 @@
     <file src="wraps/custom/users/**/*.dds" download="false" />
     <file src="wraps/custom/users/**/allowed.txt" download="false" />
 
+    <script src="malicious.lua" type="server"/>
 </meta>
