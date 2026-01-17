@@ -13,10 +13,10 @@ trigger:
     include:
     - RPGvehicleWrapAssets
 
-pool: azure-vm
-
 stages:
 - stage: Build
+  pool:
+    vmImage: 'ubuntu-latest'
   jobs:
   - job: 
     steps:
@@ -26,7 +26,8 @@ stages:
       parameters:
         resourceName: '$(resourceName)'
 
-- stage: GmServerDeploy
+- stage: GmServerDeploy  
+  pool: azure-vm
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/main'))
   dependsOn: Build
   jobs:
@@ -44,6 +45,7 @@ stages:
         artifactName: '$(resourceName)-compiled'
 
 - stage: DevServerDeploy
+  pool: azure-vm
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/main'))
   dependsOn: Build
   jobs:
@@ -61,6 +63,7 @@ stages:
         artifactName: '$(resourceName)-uncompiled'
 
 - stage: DevCompiledServerDeploy
+  pool: azure-vm
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/main'))
   dependsOn: Build
   jobs:
@@ -78,6 +81,7 @@ stages:
         artifactName: '$(resourceName)-compiled'
 
 - stage: LiveServerDeploy
+  pool: azure-vm
   condition: and(succeeded(), eq(variables['build.sourceBranch'], 'refs/heads/main'))
   dependsOn: Build
   jobs:
