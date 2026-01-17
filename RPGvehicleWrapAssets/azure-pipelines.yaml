@@ -43,19 +43,19 @@ stages:
       displayName: 'Resize existing .dds files'
       inputs:
         targetType: 'inline'
-        script: '$(Pipeline.Workspace)/pipelinetools-unzipped/PipelineTools resize-image-maintain-aspect-ratio --directory $(Build.SourcesDirectory)/$(resourceName)/wraps/custom --width 512 --height 512 --output-type .dds --search-pattern .dds'
+        script: '$(Pipeline.Workspace)/pipelinetools-unzipped/PipelineTools resize-image-maintain-aspect-ratio --directory $(Build.SourcesDirectory)/$(resourceName)/wraps/custom --width 512 --height 512 --output-type .dds --search-pattern *.dds'
         
     - task: Bash@3
       displayName: 'Resize existing .png files'
       inputs:
         targetType: 'inline'
-        script: '$(Pipeline.Workspace)/pipelinetools-unzipped/PipelineTools resize-image-maintain-aspect-ratio --directory $(Build.SourcesDirectory)/$(resourceName)/wraps/custom --width 512 --height 512 --search-pattern .png'
+        script: '$(Pipeline.Workspace)/pipelinetools-unzipped/PipelineTools resize-image-maintain-aspect-ratio --directory $(Build.SourcesDirectory)/$(resourceName)/wraps/custom --width 512 --height 512 --search-pattern *.png'
         
     - task: Bash@3
       displayName: 'Convert pngs to dds'
       inputs:
         targetType: 'inline'
-        script: '$(Pipeline.Workspace)/pipelinetools-unzipped/PipelineTools convert-dds --directory $(Build.SourcesDirectory)/$(resourceName) --search-pattern .png --delete-old true'
+        script: '$(Pipeline.Workspace)/pipelinetools-unzipped/PipelineTools convert-dds --directory $(Build.SourcesDirectory)/$(resourceName) --search-pattern *.png --delete-old true'
 
     - template: ../_pipeline-templates/builds/build-and-publish.yaml
       parameters:
