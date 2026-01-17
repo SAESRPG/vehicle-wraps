@@ -57,7 +57,7 @@ stages:
         targetType: 'inline'
         script: '$(Pipeline.Workspace)/pipelinetools-unzipped/PipelineTools convert-dds --directory $(Build.SourcesDirectory)/$(resourceName) --search-pattern *.png --delete-old true'
 
-    - template: ../_pipeline-templates/builds/build-and-publish.yaml
+    - template: ../_pipeline-templates/builds/build-and-publish-uncompiled-only.yaml
       parameters:
         resourceName: '$(resourceName)'
 
@@ -77,7 +77,7 @@ stages:
         sshUser: '$(sshUser)'
         sshKeyFile: '$(sshKeyFile)'
         serverDirectory: '$(serverDirectoryGm)'
-        artifactName: '$(resourceName)-compiled'
+        artifactName: '$(resourceName)-uncompiled'
 
 - stage: DevServerDeploy
   pool: azure-vm
@@ -113,7 +113,7 @@ stages:
         sshUser: '$(sshUser)'
         sshKeyFile: '$(sshKeyFile)'
         serverDirectory: '$(serverDirectoryDevCompiled)'
-        artifactName: '$(resourceName)-compiled'
+        artifactName: '$(resourceName)-uncompiled'
 
 - stage: LiveServerDeploy
   pool: azure-vm
@@ -131,4 +131,4 @@ stages:
         sshUser: '$(sshUser)'
         sshKeyFile: '$(sshKeyFile)'
         serverDirectory: '$(serverDirectoryLive)'
-        artifactName: '$(resourceName)-compiled'
+        artifactName: '$(resourceName)-uncompiled'
