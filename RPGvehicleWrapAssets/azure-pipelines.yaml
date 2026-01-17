@@ -4,6 +4,7 @@ variables:
   - group: DiscordWebhook
   - group: Global
   - group: Server
+  - group: ResourceRestartApi
 
 trigger:
   branches:
